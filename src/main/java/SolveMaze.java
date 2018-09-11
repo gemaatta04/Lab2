@@ -20,7 +20,7 @@ public class SolveMaze {
         /*
          * Create a new 10 x 10 maze. Feel free to change these values.
          */
-        Maze maze = new Maze(10, 10);
+        Maze maze = new Maze(3, 3);
 
         /*
          * Pick (0, 0), the bottom left corner, as the starting point.
@@ -33,8 +33,26 @@ public class SolveMaze {
          * You should be able to solve a 10 x 10 maze in (far fewer than) 1000 steps.
          * Feel free to adjust this number if you experiment with other mazes.
          */
-        for (int step = 0; step < 1000; step++) {
+        System.out.println(maze);
+        for (int step = 0; step < 10000; step++) {
             // Implement your maze solving algorithm here
+            maze.turnRight();
+            if (!maze.canMove()) {
+                maze.turnLeft();
+                if (maze.canMove()) {
+                    maze.move();
+                } else if (!maze.canMove()) {
+                    maze.turnLeft();
+                    if (maze.canMove()) {
+                        maze.move();
+                    } else {
+                        maze.turnLeft();
+                        maze.move();
+                    }
+                }
+            } else {
+                maze.move();
+            }
         }
 
         if (maze.isFinished()) {
